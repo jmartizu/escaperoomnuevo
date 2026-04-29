@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Escape Room Matemático</title>
+
+<style>
+body {
+  margin: 0;
+  background: #020617;
+  font-family: Arial, sans-serif;
+}
+
+.app {
+  position: relative;
+  width: 1536px;
+  height: 1024px;
+  margin: 0 auto;
+  background-image: url("fondo-escape.png");
+  background-size: cover;
+  background-position: center;
+}
+
+input {
+  position: absolute;
+  width: 150px;
+  height: 34px;
+  font-size: 22px;
+  text-align: center;
+  border-radius: 8px;
+  border: 3px solid #22c55e;
+  background: #f8fafc;
+}
+
+.correcto {
+  background: #bbf7d0;
+  border-color: #22c55e;
+}
+
+.incorrecto {
+  background: #fecaca;
+  border-color: #ef4444;
+}
+
+#tiempo {
+  position: absolute;
+  top: 56px;
+  left: 1060px;
+  width: 220px;
+  text-align: center;
+  font-size: 58px;
+  color: #ff3b2e;
+  font-weight: bold;
+  font-family: monospace;
+  text-shadow: 0 0 15px red;
+}
+
+#mensaje {
+  display: none;
+  position: absolute;
+  left: 900px;
+  top: 690px;
+  width: 520px;
+  padding: 25px;
+  border-radius: 18px;
+  background: rgba(6, 95, 70, 0.95);
+  color: white;
+  text-align: center;
+  font-size: 24px;
+  box-shadow: 0 0 25px #22c55e;
+}
+
+.puerta-abierta {
+  animation: brillo 1s infinite alternate;
+}
+
+@keyframes brillo {
+  from { box-shadow: inset 0 0 0 transparent; }
+  to { box-shadow: inset 0 0 80px #facc15; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app" id="app">
+
+  <div id="tiempo">50:00</div>
+
+  <!-- Fila 1 -->
+  <input class="r" data-sol="10" style="left:935px; top:211px;">
+  <input class="r" data-sol="24" style="left:1162px; top:211px;">
+  <input class="r" data-sol="24" style="left:1343px; top:211px;">
+
+  <!-- Fila 2 -->
+  <input class="r" data-sol="12" style="left:935px; top:258px;">
+  <input class="r" data-sol="30" style="left:1162px; top:258px;">
+  <input class="r" data-sol="30" style="left:1343px; top:258px;">
+
+  <!-- Fila 3 -->
+  <input class="r" data-sol="15" style="left:935px; top:306px;">
+  <input class="r" data-sol="40" style="left:1162px; top:306px;">
+  <input class="r" data-sol="60" style="left:1343px; top:306px;">
+
+  <!-- Fila 4 -->
+  <input class="r" data-sol="15" style="left:935px; top:354px;">
+  <input class="r" data-sol="36" style="left:1162px; top:354px;">
+  <input class="r" data-sol="54" style="left:1343px; top:354px;">
+
+  <!-- Fila 5 -->
+  <input class="r" data-sol="24" style="left:935px; top:402px;">
+  <input class="r" data-sol="56" style="left:1162px; top:402px;">
+  <input class="r" data-sol="84" style="left:1343px; top:402px;">
+
+  <!-- Fila 6 -->
+  <input class="r" data-sol="25" style="left:935px; top:450px;">
+  <input class="r" data-sol="60" style="left:1162px; top:450px;">
+  <input class="r" data-sol="150" style="left:1343px; top:450px;">
+
+  <!-- Fila 7 -->
+  <input class="r" data-sol="24" style="left:935px; top:498px;">
+  <input class="r" data-sol="60" style="left:1162px; top:498px;">
+  <input class="r" data-sol="120" style="left:1343px; top:498px;">
+
+  <!-- Fila 8 -->
+  <input class="r" data-sol="61" style="left:935px; top:546px;">
+  <input class="r" data-sol="132" style="left:1162px; top:546px;">
+  <input class="r" data-sol="330" style="left:1343px; top:546px;">
+
+  <!-- Fila 9 -->
+  <input class="r" data-sol="35" style="left:935px; top:594px;">
+  <input class="r" data-sol="84" style="left:1162px; top:594px;">
+  <input class="r" data-sol="210" style="left:1343px; top:594px;">
+
+  <!-- Fila 10 -->
+  <input class="r" data-sol="40" style="left:935px; top:642px;">
+  <input class="r" data-sol="96" style="left:1162px; top:642px;">
+  <input class="r" data-sol="384" style="left:1343px; top:642px;">
+
+  <div id="mensaje">
+    <h2>🎉 ¡PUERTA ABIERTA!</h2>
+    <p>
+      Todo vuelve a la normalidad.<br>
+      La tostadora ya no insulta, la cafetera ya no lleva un cuchillo
+      y la batidora ya no está roja.<br><br>
+      Gracias a vosotros, la humanidad está a salvo.
+    </p>
+  </div>
+
+</div>
+
+<audio id="victoria" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"></audio>
+<audio id="alarma" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg"></audio>
+
+<script>
+let abierto = false;
+let total = 50 * 60;
+let restante = total;
+
+const inputs = document.querySelectorAll(".r");
+
+inputs.forEach(input => {
+  input.addEventListener("input", comprobar);
+});
+
+function comprobar() {
+  if (abierto) return;
+
+  let todoBien = true;
+
+  inputs.forEach(input => {
+    const valor = input.value.trim();
+    const solucion = input.dataset.sol;
+
+    input.classList.remove("correcto", "incorrecto");
+
+    if (valor === "") {
+      todoBien = false;
+      return;
+    }
+
+    if (valor === solucion) {
+      input.classList.add("correcto");
+    } else {
+      input.classList.add("incorrecto");
+      todoBien = false;
+    }
+  });
+
+  if (todoBien) {
+    abierto = true;
+    clearInterval(intervalo);
+    document.getElementById("mensaje").style.display = "block";
+    document.getElementById("app").classList.add("puerta-abierta");
+    document.getElementById("victoria").play();
+  }
+}
+
+function actualizarTiempo() {
+  const min = Math.floor(restante / 60);
+  const seg = restante % 60;
+
+  document.getElementById("tiempo").textContent =
+    String(min).padStart(2, "0") + ":" + String(seg).padStart(2, "0");
+
+  if (restante <= 0) {
+    clearInterval(intervalo);
+    document.getElementById("alarma").play();
+  }
+
+  restante--;
+}
+
+const intervalo = setInterval(actualizarTiempo, 1000);
+</script>
+
+</body>
+</html>
