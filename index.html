@@ -5,40 +5,34 @@
 <title>Escape Room Matemático</title>
 
 <style>
-body {
+html, body {
   margin: 0;
+  padding: 0;
   background: #020617;
   font-family: Arial, sans-serif;
-  overflow-x: hidden;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
-html, body {
-  min-height: 100vh;
-}
-
-/* 🔥 ESCALA RESPONSIVA (CLAVE) */
 .app {
-  position: relative;
-  width: 1536px;
-  height: 1024px;
-
-  background-image: url("fondo-escape.png");
-  background-size: 1536px 1024px;
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background-image: url("./fondo-escape.png");
+  background-size: 600px 600px;
   background-repeat: no-repeat;
   background-position: top left;
-
-  transform: scale(calc(100vw / 1536));
   transform-origin: top left;
 }
 
-/* INPUTS */
 input {
   position: absolute;
-  width: 150px;
-  height: 34px;
-  font-size: 22px;
+  width: 130px;
+  height: 27px;
+  font-size: 20px;
   text-align: center;
-  border-radius: 8px;
+  border-radius: 7px;
   border: 3px solid #22c55e;
   background: #f8fafc;
 }
@@ -46,51 +40,50 @@ input {
 .correcto {
   background: #bbf7d0;
   border-color: #22c55e;
+  color: black;
 }
 
 .incorrecto {
   background: #fecaca;
   border-color: #ef4444;
+  color: black;
 }
 
-/* TEMPORIZADOR */
 #tiempo {
   position: absolute;
-  top: 56px;
-  left: 1060px;
-  width: 220px;
+  top: 38px;
+  left: 210px;
+  width: 180px;
   text-align: center;
-  font-size: 58px;
+  font-size: 48px;
   color: #ff3b2e;
   font-weight: bold;
   font-family: monospace;
   text-shadow: 0 0 15px red;
 }
 
-/* MENSAJE FINAL */
 #mensaje {
   display: none;
   position: absolute;
-  left: 900px;
-  top: 690px;
-  width: 520px;
-  padding: 25px;
-  border-radius: 18px;
-  background: rgba(6, 95, 70, 0.95);
+  left: 80px;
+  top: 430px;
+  width: 430px;
+  padding: 18px;
+  border-radius: 15px;
+  background: rgba(6, 95, 70, 0.96);
   color: white;
   text-align: center;
-  font-size: 24px;
+  font-size: 19px;
   box-shadow: 0 0 25px #22c55e;
 }
 
-/* EFECTO PUERTA */
 .puerta-abierta {
   animation: brillo 1s infinite alternate;
 }
 
 @keyframes brillo {
   from { box-shadow: inset 0 0 0 transparent; }
-  to { box-shadow: inset 0 0 80px #facc15; }
+  to { box-shadow: inset 0 0 70px #facc15; }
 }
 </style>
 </head>
@@ -99,78 +92,86 @@ input {
 
 <div class="app" id="app">
 
-  <!-- TEMPORIZADOR -->
   <div id="tiempo">50:00</div>
 
-  <!-- FILAS DE RESPUESTAS -->
   <!-- Fila 1 -->
-  <input class="r" data-sol="10" style="left:935px; top:211px;">
-  <input class="r" data-sol="24" style="left:1162px; top:211px;">
-  <input class="r" data-sol="24" style="left:1343px; top:211px;">
+  <input class="r" data-sol="10" style="left:95px; top:169px;">
+  <input class="r" data-sol="24" style="left:296px; top:169px;">
+  <input class="r" data-sol="24" style="left:459px; top:169px;">
 
   <!-- Fila 2 -->
-  <input class="r" data-sol="12" style="left:935px; top:258px;">
-  <input class="r" data-sol="30" style="left:1162px; top:258px;">
-  <input class="r" data-sol="30" style="left:1343px; top:258px;">
+  <input class="r" data-sol="12" style="left:95px; top:211px;">
+  <input class="r" data-sol="30" style="left:296px; top:211px;">
+  <input class="r" data-sol="30" style="left:459px; top:211px;">
 
   <!-- Fila 3 -->
-  <input class="r" data-sol="15" style="left:935px; top:306px;">
-  <input class="r" data-sol="40" style="left:1162px; top:306px;">
-  <input class="r" data-sol="60" style="left:1343px; top:306px;">
+  <input class="r" data-sol="15" style="left:95px; top:251px;">
+  <input class="r" data-sol="40" style="left:296px; top:251px;">
+  <input class="r" data-sol="60" style="left:459px; top:251px;">
 
   <!-- Fila 4 -->
-  <input class="r" data-sol="15" style="left:935px; top:354px;">
-  <input class="r" data-sol="36" style="left:1162px; top:354px;">
-  <input class="r" data-sol="54" style="left:1343px; top:354px;">
+  <input class="r" data-sol="15" style="left:95px; top:292px;">
+  <input class="r" data-sol="36" style="left:296px; top:292px;">
+  <input class="r" data-sol="54" style="left:459px; top:292px;">
 
   <!-- Fila 5 -->
-  <input class="r" data-sol="24" style="left:935px; top:402px;">
-  <input class="r" data-sol="56" style="left:1162px; top:402px;">
-  <input class="r" data-sol="84" style="left:1343px; top:402px;">
+  <input class="r" data-sol="24" style="left:95px; top:333px;">
+  <input class="r" data-sol="56" style="left:296px; top:333px;">
+  <input class="r" data-sol="84" style="left:459px; top:333px;">
 
   <!-- Fila 6 -->
-  <input class="r" data-sol="25" style="left:935px; top:450px;">
-  <input class="r" data-sol="60" style="left:1162px; top:450px;">
-  <input class="r" data-sol="150" style="left:1343px; top:450px;">
+  <input class="r" data-sol="25" style="left:95px; top:374px;">
+  <input class="r" data-sol="60" style="left:296px; top:374px;">
+  <input class="r" data-sol="150" style="left:459px; top:374px;">
 
   <!-- Fila 7 -->
-  <input class="r" data-sol="24" style="left:935px; top:498px;">
-  <input class="r" data-sol="60" style="left:1162px; top:498px;">
-  <input class="r" data-sol="120" style="left:1343px; top:498px;">
+  <input class="r" data-sol="24" style="left:95px; top:414px;">
+  <input class="r" data-sol="60" style="left:296px; top:414px;">
+  <input class="r" data-sol="120" style="left:459px; top:414px;">
 
   <!-- Fila 8 -->
-  <input class="r" data-sol="61" style="left:935px; top:546px;">
-  <input class="r" data-sol="132" style="left:1162px; top:546px;">
-  <input class="r" data-sol="330" style="left:1343px; top:546px;">
+  <input class="r" data-sol="61" style="left:95px; top:455px;">
+  <input class="r" data-sol="132" style="left:296px; top:455px;">
+  <input class="r" data-sol="330" style="left:459px; top:455px;">
 
   <!-- Fila 9 -->
-  <input class="r" data-sol="35" style="left:935px; top:594px;">
-  <input class="r" data-sol="84" style="left:1162px; top:594px;">
-  <input class="r" data-sol="210" style="left:1343px; top:594px;">
+  <input class="r" data-sol="35" style="left:95px; top:495px;">
+  <input class="r" data-sol="84" style="left:296px; top:495px;">
+  <input class="r" data-sol="210" style="left:459px; top:495px;">
 
   <!-- Fila 10 -->
-  <input class="r" data-sol="40" style="left:935px; top:642px;">
-  <input class="r" data-sol="96" style="left:1162px; top:642px;">
-  <input class="r" data-sol="384" style="left:1343px; top:642px;">
+  <input class="r" data-sol="40" style="left:95px; top:535px;">
+  <input class="r" data-sol="96" style="left:296px; top:535px;">
+  <input class="r" data-sol="384" style="left:459px; top:535px;">
 
-  <!-- MENSAJE FINAL -->
   <div id="mensaje">
     <h2>🎉 ¡PUERTA ABIERTA!</h2>
     <p>
       Todo vuelve a la normalidad.<br>
-      La tostadora ya no insulta, la cafetera ya no lleva un cuchillo
-      y la batidora ya no está roja.<br><br>
-      Gracias a vosotros, la humanidad está a salvo.
+      La humanidad está a salvo.
     </p>
   </div>
 
 </div>
 
-<!-- SONIDOS -->
 <audio id="victoria" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"></audio>
 <audio id="alarma" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg"></audio>
 
 <script>
+function ajustarPantalla() {
+  const app = document.getElementById("app");
+  const escalaX = window.innerWidth / 600;
+  const escalaY = window.innerHeight / 600;
+  const escala = Math.min(escalaX, escalaY);
+
+  app.style.transform = `scale(${escala})`;
+  app.style.left = ((window.innerWidth - 600 * escala) / 2) + "px";
+  app.style.top = ((window.innerHeight - 600 * escala) / 2) + "px";
+}
+
+window.addEventListener("load", ajustarPantalla);
+window.addEventListener("resize", ajustarPantalla);
+
 let abierto = false;
 let total = 50 * 60;
 let restante = total;
