@@ -22,7 +22,6 @@ html, body {
   transform-origin: top left;
 }
 
-/* IMAGEN */
 #fondo {
   position: absolute;
   width: 600px;
@@ -32,75 +31,93 @@ html, body {
   z-index: 1;
 }
 
-/* INPUTS */
 input {
   position: absolute;
   z-index: 5;
-  width: 128px;
-  height: 27px;
-  font-size: 20px;
+  height: 28px;
+  font-size: 19px;
   text-align: center;
   border-radius: 7px;
   border: 2px solid #22c55e;
-  background: rgba(255,255,255,0.95);
-  box-shadow: 0 0 6px #22c55e;
+  background: rgba(255,255,255,0.96);
+  box-shadow: 0 0 5px #22c55e;
+  outline: none;
 }
+
+.col1 { width: 132px; }
+.col2 { width: 96px; }
+.col3 { width: 96px; }
 
 .correcto {
   background: #bbf7d0;
   border-color: #22c55e;
+  color: black;
 }
 
 .incorrecto {
   background: #fecaca;
   border-color: #ef4444;
+  color: black;
 }
 
-/* TEMPORIZADOR */
 #tiempo {
   position: absolute;
   z-index: 6;
-  top: 42px;
-  left: 205px;
-  width: 190px;
+  top: 43px;
+  left: 222px;
+  width: 155px;
   text-align: center;
-  font-size: 42px;
+  font-size: 39px;
   color: #ff3b2e;
   font-weight: bold;
   font-family: monospace;
-  text-shadow: 0 0 10px red;
-  background: rgba(0,0,0,0.35);
+  letter-spacing: 1px;
+  text-shadow: 0 0 8px red, 0 0 14px red;
+  background: rgba(0,0,0,0.28);
   border-radius: 8px;
 }
 
-/* CANDADOS */
 .candado {
   position: absolute;
   z-index: 6;
-  font-size: 26px;
+  font-size: 24px;
   color: #777;
+  text-shadow: 0 0 8px black;
 }
 
 .candado.ok {
   color: #22c55e;
-  text-shadow: 0 0 10px #22c55e;
+  text-shadow: 0 0 12px #22c55e;
 }
 
-/* MENSAJE FINAL */
 #mensaje {
   display: none;
   position: absolute;
   z-index: 10;
-  left: 70px;
+  left: 65px;
   top: 420px;
-  width: 450px;
+  width: 455px;
   padding: 18px;
   border-radius: 15px;
-  background: rgba(6, 95, 70, 0.96);
+  background: rgba(6, 95, 70, 0.97);
   color: white;
   text-align: center;
   font-size: 19px;
   box-shadow: 0 0 25px #22c55e;
+}
+
+#avisoImagen {
+  display: none;
+  position: absolute;
+  z-index: 20;
+  left: 40px;
+  top: 240px;
+  width: 520px;
+  background: #7f1d1d;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  border-radius: 12px;
 }
 </style>
 </head>
@@ -109,134 +126,181 @@ input {
 
 <div class="app" id="app">
 
-<img id="fondo" src="./fondo-escape.png">
+<img id="fondo" src="./fondo-escape.png" alt="Escape Room" onerror="document.getElementById('avisoImagen').style.display='block'">
+
+<div id="avisoImagen">
+  No se encuentra la imagen. Debe llamarse <strong>fondo-escape.png</strong> y estar junto a este archivo.
+</div>
 
 <div id="tiempo">50:00</div>
 
 <!-- FILA 1 -->
-<input class="r fila1" data-sol="10" style="left:96px; top:169px;">
-<input class="r fila1" data-sol="24" style="left:297px; top:169px;">
-<input class="r fila1" data-sol="24" style="left:459px; top:169px;">
-<div class="candado" id="lock1" style="left:575px; top:166px;">🔒</div>
+<input class="r fila1 col1" data-sol="10" style="left:96px; top:168px;">
+<input class="r fila1 col2" data-sol="24" style="left:297px; top:168px;">
+<input class="r fila1 col3" data-sol="24" style="left:459px; top:168px;">
+<div class="candado" id="lock1" style="left:582px; top:169px;">🔒</div>
 
 <!-- FILA 2 -->
-<input class="r fila2" data-sol="12" style="left:96px; top:210px;">
-<input class="r fila2" data-sol="30" style="left:297px; top:210px;">
-<input class="r fila2" data-sol="30" style="left:459px; top:210px;">
-<div class="candado" id="lock2" style="left:575px; top:207px;">🔒</div>
+<input class="r fila2 col1" data-sol="12" style="left:96px; top:209px;">
+<input class="r fila2 col2" data-sol="30" style="left:297px; top:209px;">
+<input class="r fila2 col3" data-sol="30" style="left:459px; top:209px;">
+<div class="candado" id="lock2" style="left:582px; top:210px;">🔒</div>
 
 <!-- FILA 3 -->
-<input class="r fila3" data-sol="15" style="left:96px; top:251px;">
-<input class="r fila3" data-sol="40" style="left:297px; top:251px;">
-<input class="r fila3" data-sol="60" style="left:459px; top:251px;">
-<div class="candado" id="lock3" style="left:575px; top:248px;">🔒</div>
+<input class="r fila3 col1" data-sol="15" style="left:96px; top:250px;">
+<input class="r fila3 col2" data-sol="40" style="left:297px; top:250px;">
+<input class="r fila3 col3" data-sol="60" style="left:459px; top:250px;">
+<div class="candado" id="lock3" style="left:582px; top:251px;">🔒</div>
 
 <!-- FILA 4 -->
-<input class="r fila4" data-sol="15" style="left:96px; top:292px;">
-<input class="r fila4" data-sol="36" style="left:297px; top:292px;">
-<input class="r fila4" data-sol="54" style="left:459px; top:292px;">
-<div class="candado" id="lock4" style="left:575px; top:289px;">🔒</div>
+<input class="r fila4 col1" data-sol="15" style="left:96px; top:291px;">
+<input class="r fila4 col2" data-sol="36" style="left:297px; top:291px;">
+<input class="r fila4 col3" data-sol="54" style="left:459px; top:291px;">
+<div class="candado" id="lock4" style="left:582px; top:292px;">🔒</div>
 
 <!-- FILA 5 -->
-<input class="r fila5" data-sol="24" style="left:96px; top:333px;">
-<input class="r fila5" data-sol="56" style="left:297px; top:333px;">
-<input class="r fila5" data-sol="84" style="left:459px; top:333px;">
-<div class="candado" id="lock5" style="left:575px; top:330px;">🔒</div>
+<input class="r fila5 col1" data-sol="24" style="left:96px; top:332px;">
+<input class="r fila5 col2" data-sol="56" style="left:297px; top:332px;">
+<input class="r fila5 col3" data-sol="84" style="left:459px; top:332px;">
+<div class="candado" id="lock5" style="left:582px; top:333px;">🔒</div>
 
 <!-- FILA 6 -->
-<input class="r fila6" data-sol="25" style="left:96px; top:374px;">
-<input class="r fila6" data-sol="60" style="left:297px; top:374px;">
-<input class="r fila6" data-sol="150" style="left:459px; top:374px;">
-<div class="candado" id="lock6" style="left:575px; top:371px;">🔒</div>
+<input class="r fila6 col1" data-sol="25" style="left:96px; top:373px;">
+<input class="r fila6 col2" data-sol="60" style="left:297px; top:373px;">
+<input class="r fila6 col3" data-sol="150" style="left:459px; top:373px;">
+<div class="candado" id="lock6" style="left:582px; top:374px;">🔒</div>
 
 <!-- FILA 7 -->
-<input class="r fila7" data-sol="24" style="left:96px; top:414px;">
-<input class="r fila7" data-sol="60" style="left:297px; top:414px;">
-<input class="r fila7" data-sol="120" style="left:459px; top:414px;">
-<div class="candado" id="lock7" style="left:575px; top:411px;">🔒</div>
+<input class="r fila7 col1" data-sol="24" style="left:96px; top:414px;">
+<input class="r fila7 col2" data-sol="60" style="left:297px; top:414px;">
+<input class="r fila7 col3" data-sol="120" style="left:459px; top:414px;">
+<div class="candado" id="lock7" style="left:582px; top:415px;">🔒</div>
 
 <!-- FILA 8 -->
-<input class="r fila8" data-sol="61" style="left:96px; top:455px;">
-<input class="r fila8" data-sol="132" style="left:297px; top:455px;">
-<input class="r fila8" data-sol="330" style="left:459px; top:455px;">
-<div class="candado" id="lock8" style="left:575px; top:452px;">🔒</div>
+<input class="r fila8 col1" data-sol="61" style="left:96px; top:455px;">
+<input class="r fila8 col2" data-sol="132" style="left:297px; top:455px;">
+<input class="r fila8 col3" data-sol="330" style="left:459px; top:455px;">
+<div class="candado" id="lock8" style="left:582px; top:456px;">🔒</div>
 
 <!-- FILA 9 -->
-<input class="r fila9" data-sol="35" style="left:96px; top:495px;">
-<input class="r fila9" data-sol="84" style="left:297px; top:495px;">
-<input class="r fila9" data-sol="210" style="left:459px; top:495px;">
-<div class="candado" id="lock9" style="left:575px; top:492px;">🔒</div>
+<input class="r fila9 col1" data-sol="35" style="left:96px; top:495px;">
+<input class="r fila9 col2" data-sol="84" style="left:297px; top:495px;">
+<input class="r fila9 col3" data-sol="210" style="left:459px; top:495px;">
+<div class="candado" id="lock9" style="left:582px; top:496px;">🔒</div>
 
 <!-- FILA 10 -->
-<input class="r fila10" data-sol="40" style="left:96px; top:535px;">
-<input class="r fila10" data-sol="96" style="left:297px; top:535px;">
-<input class="r fila10" data-sol="384" style="left:459px; top:535px;">
-<div class="candado" id="lock10" style="left:575px; top:532px;">🔒</div>
+<input class="r fila10 col1" data-sol="40" style="left:96px; top:535px;">
+<input class="r fila10 col2" data-sol="96" style="left:297px; top:535px;">
+<input class="r fila10 col3" data-sol="384" style="left:459px; top:535px;">
+<div class="candado" id="lock10" style="left:582px; top:536px;">🔒</div>
 
 <div id="mensaje">
 <h2>🎉 ¡PUERTA ABIERTA!</h2>
-<p>Todo vuelve a la normalidad.<br>La humanidad está a salvo.</p>
+<p>
+Todo vuelve a la normalidad.<br>
+La tostadora ya no insulta, la cafetera ya no lleva un cuchillo
+y la batidora ya no está roja.<br><br>
+La humanidad está a salvo.
+</p>
 </div>
 
 </div>
 
 <audio id="victoria" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"></audio>
+<audio id="alarma" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg"></audio>
 
 <script>
-function ajustarPantalla(){
-  const app=document.getElementById("app");
-  const escala=Math.min(window.innerWidth/600,window.innerHeight/600);
-  app.style.transform=`scale(${escala})`;
-  app.style.left=((window.innerWidth-600*escala)/2)+"px";
-  app.style.top=((window.innerHeight-600*escala)/2)+"px";
-}
-window.onload=ajustarPantalla;
-window.onresize=ajustarPantalla;
+function ajustarPantalla() {
+  const app = document.getElementById("app");
+  const escala = Math.min(window.innerWidth / 600, window.innerHeight / 600);
 
-let abierto=false;
-document.querySelectorAll(".r").forEach(i=>{
-  i.addEventListener("input",comprobar);
+  app.style.transform = `scale(${escala})`;
+  app.style.left = ((window.innerWidth - 600 * escala) / 2) + "px";
+  app.style.top = ((window.innerHeight - 600 * escala) / 2) + "px";
+}
+
+window.addEventListener("load", ajustarPantalla);
+window.addEventListener("resize", ajustarPantalla);
+
+let abierto = false;
+let tiempo = 50 * 60;
+
+document.querySelectorAll(".r").forEach(input => {
+  input.addEventListener("input", comprobar);
 });
 
-function comprobarFila(n){
-  const fila=document.querySelectorAll(".fila"+n);
-  let bien=true;
-  fila.forEach(i=>{
-    const v=i.value.trim();
-    const s=i.dataset.sol;
-    i.classList.remove("correcto","incorrecto");
-    if(v===""){bien=false;return;}
-    if(v===s){i.classList.add("correcto");}
-    else{bien=false;i.classList.add("incorrecto");}
+function comprobarFila(n) {
+  const fila = document.querySelectorAll(".fila" + n);
+  let bien = true;
+
+  fila.forEach(input => {
+    const valor = input.value.trim();
+    const solucion = input.dataset.sol;
+
+    input.classList.remove("correcto", "incorrecto");
+
+    if (valor === "") {
+      bien = false;
+      return;
+    }
+
+    if (valor === solucion) {
+      input.classList.add("correcto");
+    } else {
+      input.classList.add("incorrecto");
+      bien = false;
+    }
   });
-  const lock=document.getElementById("lock"+n);
-  lock.textContent=bien?"🔓":"🔒";
-  if(bien) lock.classList.add("ok"); else lock.classList.remove("ok");
+
+  const lock = document.getElementById("lock" + n);
+
+  if (bien) {
+    lock.textContent = "🔓";
+    lock.classList.add("ok");
+  } else {
+    lock.textContent = "🔒";
+    lock.classList.remove("ok");
+  }
+
   return bien;
 }
 
-function comprobar(){
-  if(abierto)return;
-  let todo=true;
-  for(let i=1;i<=10;i++){
-    if(!comprobarFila(i)) todo=false;
+function comprobar() {
+  if (abierto) return;
+
+  let todo = true;
+
+  for (let i = 1; i <= 10; i++) {
+    if (!comprobarFila(i)) {
+      todo = false;
+    }
   }
-  if(todo){
-    abierto=true;
-    document.getElementById("mensaje").style.display="block";
+
+  if (todo) {
+    abierto = true;
+    clearInterval(intervalo);
+    document.getElementById("mensaje").style.display = "block";
     document.getElementById("victoria").play();
   }
 }
 
-/* TEMPORIZADOR */
-let t=50*60;
-setInterval(()=>{
-  let m=Math.floor(t/60);
-  let s=t%60;
-  document.getElementById("tiempo").textContent=
-    String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
-  t--;
-},1000);
+function actualizarTiempo() {
+  const min = Math.floor(tiempo / 60);
+  const seg = tiempo % 60;
+
+  document.getElementById("tiempo").textContent =
+    String(min).padStart(2, "0") + ":" + String(seg).padStart(2, "0");
+
+  if (tiempo <= 0) {
+    clearInterval(intervalo);
+    document.getElementById("alarma").play();
+  }
+
+  tiempo--;
+}
+
+const intervalo = setInterval(actualizarTiempo, 1000);
+actualizarTiempo();
 </script>
 
 </body>
