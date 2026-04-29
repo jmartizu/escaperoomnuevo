@@ -9,18 +9,29 @@ body {
   margin: 0;
   background: #020617;
   font-family: Arial, sans-serif;
+  overflow-x: hidden;
 }
 
+html, body {
+  min-height: 100vh;
+}
+
+/* 🔥 ESCALA RESPONSIVA (CLAVE) */
 .app {
   position: relative;
   width: 1536px;
   height: 1024px;
-  margin: 0 auto;
+
   background-image: url("fondo-escape.png");
-  background-size: cover;
-  background-position: center;
+  background-size: 1536px 1024px;
+  background-repeat: no-repeat;
+  background-position: top left;
+
+  transform: scale(calc(100vw / 1536));
+  transform-origin: top left;
 }
 
+/* INPUTS */
 input {
   position: absolute;
   width: 150px;
@@ -42,6 +53,7 @@ input {
   border-color: #ef4444;
 }
 
+/* TEMPORIZADOR */
 #tiempo {
   position: absolute;
   top: 56px;
@@ -55,6 +67,7 @@ input {
   text-shadow: 0 0 15px red;
 }
 
+/* MENSAJE FINAL */
 #mensaje {
   display: none;
   position: absolute;
@@ -70,6 +83,7 @@ input {
   box-shadow: 0 0 25px #22c55e;
 }
 
+/* EFECTO PUERTA */
 .puerta-abierta {
   animation: brillo 1s infinite alternate;
 }
@@ -85,8 +99,10 @@ input {
 
 <div class="app" id="app">
 
+  <!-- TEMPORIZADOR -->
   <div id="tiempo">50:00</div>
 
+  <!-- FILAS DE RESPUESTAS -->
   <!-- Fila 1 -->
   <input class="r" data-sol="10" style="left:935px; top:211px;">
   <input class="r" data-sol="24" style="left:1162px; top:211px;">
@@ -137,6 +153,7 @@ input {
   <input class="r" data-sol="96" style="left:1162px; top:642px;">
   <input class="r" data-sol="384" style="left:1343px; top:642px;">
 
+  <!-- MENSAJE FINAL -->
   <div id="mensaje">
     <h2>🎉 ¡PUERTA ABIERTA!</h2>
     <p>
@@ -149,6 +166,7 @@ input {
 
 </div>
 
+<!-- SONIDOS -->
 <audio id="victoria" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"></audio>
 <audio id="alarma" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg"></audio>
 
