@@ -19,17 +19,23 @@ html, body {
   position: absolute;
   width: 600px;
   height: 600px;
-  background-image: url("./fondo-escape.png");
-  background-size: 600px 600px;
-  background-repeat: no-repeat;
-  background-position: top left;
   transform-origin: top left;
+}
+
+#fondo {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  left: 0;
+  top: 0;
+  z-index: 1;
 }
 
 input {
   position: absolute;
+  z-index: 5;
   width: 128px;
-  height: 26px;
+  height: 27px;
   font-size: 20px;
   text-align: center;
   border-radius: 7px;
@@ -52,6 +58,7 @@ input {
 
 #tiempo {
   position: absolute;
+  z-index: 6;
   top: 37px;
   left: 205px;
   width: 190px;
@@ -65,6 +72,7 @@ input {
 
 .candado {
   position: absolute;
+  z-index: 6;
   font-size: 28px;
   color: #777;
   text-shadow: 0 0 6px black;
@@ -78,6 +86,7 @@ input {
 #mensaje {
   display: none;
   position: absolute;
+  z-index: 10;
   left: 70px;
   top: 420px;
   width: 450px;
@@ -88,16 +97,6 @@ input {
   text-align: center;
   font-size: 19px;
   box-shadow: 0 0 25px #22c55e;
-  z-index: 10;
-}
-
-.puerta-abierta {
-  animation: brillo 1s infinite alternate;
-}
-
-@keyframes brillo {
-  from { box-shadow: inset 0 0 0 transparent; }
-  to { box-shadow: inset 0 0 80px #facc15; }
 }
 </style>
 </head>
@@ -106,63 +105,55 @@ input {
 
 <div class="app" id="app">
 
+  <img id="fondo" src="./fondo-escape.png" alt="Escape Room">
+
   <div id="tiempo">50:00</div>
 
-  <!-- FILA 1 -->
   <input class="r fila1" data-sol="10" style="left:96px; top:169px;">
   <input class="r fila1" data-sol="24" style="left:297px; top:169px;">
   <input class="r fila1" data-sol="24" style="left:459px; top:169px;">
   <div class="candado" id="lock1" style="left:584px; top:166px;">🔒</div>
 
-  <!-- FILA 2 -->
   <input class="r fila2" data-sol="12" style="left:96px; top:210px;">
   <input class="r fila2" data-sol="30" style="left:297px; top:210px;">
   <input class="r fila2" data-sol="30" style="left:459px; top:210px;">
   <div class="candado" id="lock2" style="left:584px; top:207px;">🔒</div>
 
-  <!-- FILA 3 -->
   <input class="r fila3" data-sol="15" style="left:96px; top:251px;">
   <input class="r fila3" data-sol="40" style="left:297px; top:251px;">
   <input class="r fila3" data-sol="60" style="left:459px; top:251px;">
   <div class="candado" id="lock3" style="left:584px; top:248px;">🔒</div>
 
-  <!-- FILA 4 -->
   <input class="r fila4" data-sol="15" style="left:96px; top:292px;">
   <input class="r fila4" data-sol="36" style="left:297px; top:292px;">
   <input class="r fila4" data-sol="54" style="left:459px; top:292px;">
   <div class="candado" id="lock4" style="left:584px; top:289px;">🔒</div>
 
-  <!-- FILA 5 -->
   <input class="r fila5" data-sol="24" style="left:96px; top:333px;">
   <input class="r fila5" data-sol="56" style="left:297px; top:333px;">
   <input class="r fila5" data-sol="84" style="left:459px; top:333px;">
   <div class="candado" id="lock5" style="left:584px; top:330px;">🔒</div>
 
-  <!-- FILA 6 -->
   <input class="r fila6" data-sol="25" style="left:96px; top:374px;">
   <input class="r fila6" data-sol="60" style="left:297px; top:374px;">
   <input class="r fila6" data-sol="150" style="left:459px; top:374px;">
   <div class="candado" id="lock6" style="left:584px; top:371px;">🔒</div>
 
-  <!-- FILA 7 -->
   <input class="r fila7" data-sol="24" style="left:96px; top:414px;">
   <input class="r fila7" data-sol="60" style="left:297px; top:414px;">
   <input class="r fila7" data-sol="120" style="left:459px; top:414px;">
   <div class="candado" id="lock7" style="left:584px; top:411px;">🔒</div>
 
-  <!-- FILA 8 -->
   <input class="r fila8" data-sol="61" style="left:96px; top:455px;">
   <input class="r fila8" data-sol="132" style="left:297px; top:455px;">
   <input class="r fila8" data-sol="330" style="left:459px; top:455px;">
   <div class="candado" id="lock8" style="left:584px; top:452px;">🔒</div>
 
-  <!-- FILA 9 -->
   <input class="r fila9" data-sol="35" style="left:96px; top:495px;">
   <input class="r fila9" data-sol="84" style="left:297px; top:495px;">
   <input class="r fila9" data-sol="210" style="left:459px; top:495px;">
   <div class="candado" id="lock9" style="left:584px; top:492px;">🔒</div>
 
-  <!-- FILA 10 -->
   <input class="r fila10" data-sol="40" style="left:96px; top:535px;">
   <input class="r fila10" data-sol="96" style="left:297px; top:535px;">
   <input class="r fila10" data-sol="384" style="left:459px; top:535px;">
@@ -170,10 +161,7 @@ input {
 
   <div id="mensaje">
     <h2>🎉 ¡PUERTA ABIERTA!</h2>
-    <p>
-      Todo vuelve a la normalidad.<br>
-      La humanidad está a salvo.
-    </p>
+    <p>Todo vuelve a la normalidad.<br>La humanidad está a salvo.</p>
   </div>
 
 </div>
@@ -200,9 +188,7 @@ let abierto = false;
 let total = 50 * 60;
 let restante = total;
 
-const inputs = document.querySelectorAll(".r");
-
-inputs.forEach(input => {
+document.querySelectorAll(".r").forEach(input => {
   input.addEventListener("input", comprobar);
 });
 
@@ -257,7 +243,6 @@ function comprobar() {
     abierto = true;
     clearInterval(intervalo);
     document.getElementById("mensaje").style.display = "block";
-    document.getElementById("app").classList.add("puerta-abierta");
     document.getElementById("victoria").play();
   }
 }
